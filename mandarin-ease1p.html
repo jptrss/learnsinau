@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Interaktif Mandarin - EASE 1 G11</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            accent: '#06b6d4'
+                        },
+                        darkbg: '#0b0f19',
+                        darkcard: '#111827',
+                        darkborder: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 35%),
+                radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 35%);
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .option-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .option-card:hover:not(.disabled) {
+            transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(30, 41, 59, 0.7);
+        }
+
+        .option-correct {
+            background-color: rgba(16, 185, 129, 0.2) !important;
+            border-color: #10b981 !important;
+            color: #34d399 !important;
+        }
+
+        .option-wrong {
+            background-color: rgba(239, 68, 68, 0.2) !important;
+            border-color: #ef4444 !important;
+            color: #f87171 !important;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="w-full glass-panel sticky top-0 z-50 border-b border-gray-800/80">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-accent flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-500/20">
+                    漢
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-white tracking-wide leading-tight">Mandarin Quiz</h1>
+                    <p class="text-xs text-gray-400">EASE 1 G11 • Bab 8 & 9</p>
+                </div>
+            </div>
+            <div id="quiz-badge" class="hidden px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-500 text-xs font-semibold">
+                Mode Standar
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl w-full mx-auto px-4 py-6 flex-grow flex flex-col justify-center">
+
+        <!-- Start / Welcome Screen -->
+        <div id="welcome-screen" class="glass-panel rounded-2xl p-6 sm:p-10 text-center space-y-6">
+            <div class="inline-flex p-4 rounded-full bg-brand-500/10 text-brand-500 mb-2">
+                <i class="fa-solid fa-graduation-cap text-4xl"></i>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Latihan Soal Mandarin Interaktif</h2>
+            <p class="text-gray-300 max-w-lg mx-auto text-sm sm:text-base leading-relaxed">
+                Uji pemahaman Mandarin kamu mencakup materi <strong class="text-brand-accent">Bab 8 (Jam, Durasi, Waktu)</strong> dan <strong class="text-brand-accent">Bab 9 (Kata Benda, Jumlah, Baju)</strong>. Total 40 soal dengan penjelasannya secara langsung.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto pt-2 text-left text-xs sm:text-sm">
+                <div class="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 flex items-center gap-3">
+                    <i class="fa-solid fa-list-check text-brand-500 text-lg"></i>
+                    <div>
+                        <div class="font-bold text-gray-200">40 Soal</div>
+                        <div class="text-gray-400 text-xs">Pilihan Ganda</div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 flex items-center gap-3">
+                    <i class="fa-solid fa-bolt text-yellow-400 text-lg"></i>
+                    <div>
+                        <div class="font-bold text-gray-200">Instan</div>
+                        <div class="text-gray-400 text-xs">Umpan balik & pembahasan</div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-xl bg-gray-800/50 border border-gray-700/50 flex items-center gap-3">
+                    <i class="fa-solid fa-chart-pie text-emerald-400 text-lg"></i>
+                    <div>
+                        <div class="font-bold text-gray-200">Analisis</div>
+                        <div class="text-gray-400 text-xs">Deteksi kelemahan</div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btn-start" onclick="startQuiz()" class="mt-6 w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-brand-600 to-brand-accent hover:from-brand-500 hover:to-cyan-400 text-white font-bold rounded-xl shadow-lg shadow-brand-500/25 transition-all transform hover:-translate-y-0.5">
+                Mulai Kuis Sekarang <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- Quiz Main Container (Hidden by default) -->
+        <div id="quiz-screen" class="hidden space-y-5">
+            <!-- Progress Bar & Indicator Header -->
+            <div class="glass-panel p-4 rounded-xl space-y-2">
+                <div class="flex justify-between items-center text-xs font-semibold text-gray-300">
+                    <span id="question-count-text">Soal 1 dari 40</span>
+                    <span id="score-live-text" class="text-brand-accent">Skor: 0</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-brand-500 to-brand-accent h-2.5 rounded-full transition-all duration-300" style="width: 2.5%"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="glass-panel rounded-2xl p-5 sm:p-7 space-y-6">
+                <!-- Question Tag / Category -->
+                <div class="flex items-center justify-between">
+                    <span id="question-category" class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-800 text-gray-300 border border-gray-700">
+                        Bab 8: Waktu
+                    </span>
+                    <span id="question-id-tag" class="text-xs text-gray-500 font-mono">ID: #1</span>
+                </div>
+
+                <!-- Question Text -->
+                <h3 id="question-text" class="text-lg sm:text-xl font-semibold text-white leading-relaxed">
+                    <!-- Text injected by JS -->
+                </h3>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 gap-3">
+                    <!-- Options injected by JS -->
+                </div>
+
+                <!-- Explanation Box (Hidden initially) -->
+                <div id="explanation-box" class="hidden p-4 rounded-xl border transition-all duration-300">
+                    <div class="flex items-start gap-3">
+                        <div id="explanation-icon" class="text-xl mt-0.5"></div>
+                        <div class="space-y-1">
+                            <h4 id="explanation-title" class="font-bold text-sm"></h4>
+                            <p id="explanation-text" class="text-sm text-gray-300 leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation inside Card -->
+                <div class="pt-2 flex justify-end">
+                    <button id="btn-next" onclick="nextQuestion()" disabled class="px-6 py-3 rounded-xl bg-gray-800 text-gray-500 font-semibold cursor-not-allowed transition-all duration-200 flex items-center gap-2">
+                        <span>Lanjut ke Soal Berikutnya</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results / Summary Screen (Hidden by default) -->
+        <div id="result-screen" class="hidden space-y-6">
+            <div class="glass-panel rounded-2xl p-6 sm:p-8 text-center space-y-6">
+                <div class="space-y-2">
+                    <div class="inline-flex p-3 rounded-full bg-emerald-500/10 text-emerald-400 mb-1">
+                        <i class="fa-solid fa-trophy text-3xl"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Ringkasan Hasil Kuis</h2>
+                    <p class="text-gray-400 text-sm">Kerja bagus! Berikut adalah rekapitulasi performa kamu.</p>
+                </div>
+
+                <!-- Main Stats Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                    <div class="p-4 rounded-xl bg-gray-900/60 border border-gray-800">
+                        <div class="text-xs text-gray-400 font-medium">Persentase</div>
+                        <div id="res-percentage" class="text-2xl sm:text-3xl font-black text-brand-accent mt-1">0%</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-900/60 border border-gray-800">
+                        <div class="text-xs text-gray-400 font-medium">Total Skor</div>
+                        <div id="res-score" class="text-2xl sm:text-3xl font-black text-white mt-1">0/40</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-900/60 border border-gray-800">
+                        <div class="text-xs text-gray-400 font-medium">Jawaban Benar</div>
+                        <div id="res-correct" class="text-2xl sm:text-3xl font-black text-emerald-400 mt-1">0</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-900/60 border border-gray-800">
+                        <div class="text-xs text-gray-400 font-medium">Jawaban Salah</div>
+                        <div id="res-wrong" class="text-2xl sm:text-3xl font-black text-rose-400 mt-1">0</div>
+                    </div>
+                </div>
+
+                <!-- Weakness Analysis Breakdown -->
+                <div class="p-5 rounded-xl bg-gray-900/50 border border-gray-800 text-left space-y-4">
+                    <h3 class="font-bold text-white text-base flex items-center gap-2">
+                        <i class="fa-solid fa-chart-bar text-brand-500"></i> Analisis Kategori
+                    </h3>
+
+                    <!-- Category 1 Progress -->
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-300 font-medium">Bab 8: Jam, Durasi & Waktu (Soal 1-20)</span>
+                            <span id="cat1-score" class="text-gray-400 font-bold">0/20</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
+                            <div id="cat1-bar" class="bg-brand-500 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Category 2 Progress -->
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-300 font-medium">Bab 9: Kata Benda, Jumlah & Baju (Soal 21-40)</span>
+                            <span id="cat2-score" class="text-gray-400 font-bold">0/20</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
+                            <div id="cat2-bar" class="bg-brand-accent h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Summary Box -->
+                    <div id="evaluation-box" class="p-3 rounded-lg bg-gray-800/60 text-xs text-gray-300 border border-gray-700/50">
+                        <!-- Summary text injected here -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                    <button id="btn-followup" onclick="startFollowupQuiz()" class="px-6 py-3 bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-bold rounded-xl shadow-lg shadow-rose-500/20 flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>Coba Lagi Soal yang Salah (<span id="wrong-count-badge">0</span>)</span>
+                    </button>
+                    <button onclick="restartFullQuiz()" class="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold rounded-xl border border-gray-700 flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <span>Ulangi Semua Soal (40)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-4 text-xs text-gray-500 border-t border-gray-800/50">
+        Mandarin Practice App &bull; EASE 1 G11 Material
+    </footer>
+
+    <script>
+        // Data 40 Soal Mandarin Lengkap
+        const questionsData = [
+            { id: 1, cat: 8, question: "Apa arti dari kosa kata 点 (diǎn) dalam konteks penyataan waktu/jam?", options: ["Menit", "Jam / Pukul", "Detik", "Jam (durasi/lama waktu)"], answer: 1, explanation: "点 (diǎn) digunakan untuk menyatakan titik waktu/pukul/jam (misal: 三点 = jam 3)." },
+            { id: 2, cat: 8, question: "Pinyin yang tepat untuk kata kerja 起床 adalah...", options: ["qǐchuáng", "qǐchuāng", "qíchuáng", "qǐchuángg"], answer: 0, explanation: "起床 dibaca qǐchuáng (nada 3 dan nada 2) yang berarti bangun tidur." },
+            { id: 3, cat: 8, question: "Istilah Mandarin yang berarti 15 menit (seperempat jam) adalah...", options: ["半 (bàn)", "一刻 (yí kè)", "三刻 (sān kè)", "小时 (xiǎoshí)"], answer: 1, explanation: "一刻 (yí kè) berarti seperempat jam atau 15 menit. 半 adalah 30 menit, 三刻 adalah 45 menit." },
+            { id: 4, cat: 8, question: "Apa arti dari kalimat tanya 下午你几点去学校？ (Xiàwǔ nǐ jǐ diǎn qù xuéxiào?)", options: ["Berapa jam kamu belajar di sekolah sore ini?", "Jam berapa kamu pergi ke sekolah tadi pagi?", "Jam berapa kamu pergi ke sekolah sore ini?", "Kamu pergi ke sekolah sama siapa sore ini?"], answer: 2, explanation: "下午 (sore), 几点 (jam berapa), 去学校 (pergi ke sekolah). Arti lengkap: 'Jam berapa kamu pergi ke sekolah sore ini?'" },
+            { id: 5, cat: 8, question: "Pinyin yang tepat untuk kata kerja 睡觉 adalah...", options: ["shuìjiào", "shuǐjiào", "shuìjiāo", "shuíjiào"], answer: 0, explanation: "睡觉 dibaca shuìjiào (keduanya nada 4) yang berarti tidur." },
+            { id: 6, cat: 8, question: "Apa arti dari kata keterangan Píngshí (平时)?", options: ["Kadang-kadang", "Usually / Pada umumnya / Hari biasa", "Hampir", "Sekarang"], answer: 1, explanation: "平时 (Píngshí) berarti biasanya, pada umumnya, atau hari-hari biasa." },
+            { id: 7, cat: 8, question: "Penulisan Hanzi yang tepat untuk Pinyin Chàbuduō (artinya: hampir / kurang lebih) adalah...", options: ["差不多", "差不多儿", "差不多分", "差不点"], answer: 0, explanation: "Chàbuduō ditulis dengan Hanzi 差不多." },
+            { id: 8, cat: 8, question: "Durasi waktu yang diwakili oleh kosa kata 三刻 (sān kè) adalah...", options: ["15 menit", "30 menit", "45 menit", "3 jam"], answer: 2, explanation: "1刻 = 15 menit, maka 三刻 (3刻) = 3 x 15 menit = 45 menit." },
+            { id: 9, cat: 8, question: "Apa arti dari kalimat 我晚上七点半吃饭。 (Wǒ wǎnshang qī diǎn bàn chīfàn.)", options: ["Saya makan malam jam 07.15.", "Saya makan malam jam 07.30.", "Saya makan siang jam 12.30.", "Saya sarapan pagi jam 07.30."], answer: 1, explanation: "晚上 (malam), 七点半 (jam 7.30), 吃饭 (makan). Jadi artinya 'Saya makan malam jam 07.30.'" },
+            { id: 10, cat: 8, question: "Apa arti dari kosa kata kegiatan 看书 (kànshū)?", options: ["Membaca buku", "Menulis buku", "Membeli buku", "Meminjam buku"], answer: 0, explanation: "看书 (kànshū) terdiri dari 看 (melihat/membaca) dan 书 (buku), artinya membaca buku." },
+            { id: 11, cat: 8, question: "Bagaimana cara menyebutkan jam 08.10 dalam bahasa Mandarin?", options: ["八点分十 (Bā diǎn fēn shí)", "八点十分 (Bā diǎn shí fēn)", "十点八分 (Shí diǎn bā fēn)", "八点一刻 (Bā diǎn yí kè)"], answer: 1, explanation: "Jam 08.10 dibaca 八点十分 (Bā diǎn shí fēn) -> 八点 (jam 8) + 十分 (10 menit)." },
+            { id: 12, cat: 8, question: "Penulisan Hanzi yang tepat untuk Pinyin Xiǎoshí (jam/durasi) adalah...", options: ["小时", "点钟", "分钟", "时间"], answer: 0, explanation: "Xiǎoshí (durasi jam) ditulis 小时." },
+            { id: 13, cat: 8, question: "Hanzi yang tepat untuk kata keterangan 'Kadang-kadang' (yǒushíhou) adalah...", options: ["平时", "有时候", "常常", "总是"], answer: 1, explanation: "yǒushíhou ditulis 有时候 yang berarti kadang-kadang." },
+            { id: 14, cat: 8, question: "Pinyin dan nada yang tepat untuk kata 半 (setengah / separuh) adalah...", options: ["bān (nada 1)", "bán (nada 2)", "bǎn (nada 3)", "bàn (nada 4)"], answer: 3, explanation: "Kata 半 dibaca bàn dengan nada 4." },
+            { id: 15, cat: 8, question: "Apa arti dari kalimat 我看书看了两个小时。 (Wǒ kànshū kàn le liǎng gè xiǎoshí.)", options: ["Saya sudah membaca buku selama dua jam.", "Saya membaca dua buah buku.", "Saya membaca buku pada jam 2.", "Saya akan membaca buku selama dua jam."], answer: 0, explanation: "两个小时 menyatakan durasi 2 jam, dan 了 menandakan tindakan tersebut telah selesai dilakukan." },
+            { id: 16, cat: 8, question: "Dalam tata bahasa Mandarin, partikel 了 (le) di akhir kalimat atau setelah kata kerja berfungsi untuk menandakan...", options: ["Kalimat perintah", "Perubahan keadaan atau tindakan/kejadian yang telah selesai dilakukan", "Kalimat pengandaian", "Kepemilikan barang"], answer: 1, explanation: "Partikel 了 (le) digunakan untuk mengindikasikan tindakan yang sudah selesai (aspect particle) atau perubahan kondisi baru." },
+            { id: 17, cat: 8, question: "Penulisan Hanzi yang tepat dari Pinyin Wǒ xǐhuān kànshū adalah...", options: ["我喜欢看书", "我平时看书", "我要买书", "我喜欢写字"], answer: 0, explanation: "Wǒ (我) xǐhuān (喜欢) kànshū (看书) = 我喜欢看书." },
+            { id: 18, cat: 8, question: "Apa arti dari kalimat tanya 我们几点上课？ (Wǒmen jǐ diǎn shàngkè?)", options: ["Jam berapa kita selesai kelas / pulang sekolah?", "Jam berapa kita mulai masuk kelas?", "Di mana kita akan belajar?", "Hari apa kita ada kelas?"], answer: 1, explanation: "我们 (kita), 几点 (jam berapa), 上课 (mulai kelas/masuk kelas)." },
+            { id: 19, cat: 8, question: "Dalam konteks penyataan waktu, kata keterangan 才 (cái) mengindikasikan bahwa suatu kejadian terjadi...", options: ["Lebih cepat dari yang diperkirakan", "Lambat, terlambat, atau baru saja terjadi", "Sangat sering", "Tidak akan pernah terjadi"], answer: 1, explanation: "才 (cái) mengepresikan bahwa suatu tindakan terjadi terlambat/lambat atau baru saja terjadi, berbeda dengan 就 (jiù) yang cepat." },
+            { id: 20, cat: 8, question: "Pinyin yang tepat untuk menyebutkan jam 10.05 (十点零五分) adalah...", options: ["shí diǎn shí fēn", "shí diǎn líng wǔ fēn", "wǔ diǎn shí fēn", "shí diǎn wǔ fēn"], answer: 1, explanation: "Jam 10.05 menyebutkan angka nol (零 - líng), sehingga dibaca shí diǎn líng wǔ fēn." },
+            { id: 21, cat: 9, question: "Apa arti dari kata benda 词典 (cídiǎn)?", options: ["Buku tulis", "Kamus", "Tas sekolah", "Majalah"], answer: 1, explanation: "词典 (cídiǎn) berarti kamus." },
+            { id: 22, cat: 9, question: "Pinyin yang tepat untuk kata benda 书包 adalah...", options: ["shūbāo", "shūbǎo", "shūpāo", "shúbāo"], answer: 0, explanation: "书包 dibaca shūbāo (keduanya nada 1) yang berarti tas sekolah." },
+            { id: 23, cat: 9, question: "Kata bantu bilangan (量词) yang tepat untuk barang elektronik seperti TV (电视) atau komputer (电脑) adalah...", options: ["本 (běn)", "件 (jiàn)", "台 (tái)", "张 (zhāng)"], answer: 2, explanation: "台 (tái) digunakan sebagai kata bantu bilangan untuk mesin dan perangkat elektronik seperti TV, komputer." },
+            { id: 24, cat: 9, question: "Apa arti dari kalimat tanya 你书包里有什么？ (Nǐ shūbāo lǐ yǒu shénme?)", options: ["Siapa yang membawa tas sekolahmu?", "Di mana kamu membeli tas sekolah?", "Ada apa di dalam tas sekolahmu?", "Berapa harga tas sekolahmu?"], answer: 2, explanation: "你书包里 (di dalam tas sekolahmu), 有什么 (ada apa)." },
+            { id: 25, cat: 9, question: "Penulisan Hanzi yang tepat untuk Pinyin Yīfu (pakaian/baju) adalah...", options: ["衣服", "医生", "椅子", "电视"], answer: 0, explanation: "Yīfu (pakaian) ditulis 衣服. 医生 adalah dokter, 椅子 adalah kursi, 电视 adalah TV." },
+            { id: 26, cat: 9, question: "Kata bantu bilangan 双 (shuāng) digunakan untuk benda yang berpasangan. Apa artinya?", options: ["Buah / Lembar", "Pasang", "Stel / Potong (baju)", "Jilid / Buah (buku)"], answer: 1, explanation: "双 (shuāng) berarti sepasang (seperti sepatu, sumpit, kaos kaki)." },
+            { id: 27, cat: 9, question: "Pinyin yang tepat untuk kata sifat 好看 (bagus dilihat / cantik / menarik) adalah...", options: ["hǎokàn", "hǎogān", "hàokàn", "hǎokān"], answer: 0, explanation: "好看 dibaca hǎokàn." },
+            { id: 28, cat: 9, question: "Apa arti dari kata keterangan 只 (zhǐ) dalam pola kalimat?", options: ["Juga", "Hanya / Cuma", "Sangat", "Tidak"], answer: 1, explanation: "Kata 只 (zhǐ) berarti hanya / cuma." },
+            { id: 29, cat: 9, question: "Apa arti dari kalimat 这件衣服真好看！ (Zhè jiàn yīfu zhēn hǎokàn!)", options: ["Baju ini sangat mahal!", "Baju ini sangat bagus / indah!", "Baju ini sangat kecil!", "Saya sangat menyukai baju itu!"], answer: 1, explanation: "这件衣服 (baju ini), 真 (sungguh/sangat), 好看 (bagus/indah)." },
+            { id: 30, cat: 9, question: "Kata bantu bilangan 件 (jiàn) paling tepat digunakan untuk pasangan kata benda...", options: ["书 (shū - buku)", "衣服 (yīfu - pakaian/baju)", "词典 (cídiǎn - kamus)", "电视 (diànshì - TV)"], answer: 1, explanation: "件 (jiàn) digunakan untuk pakaian/baju (衣服)." },
+            { id: 31, cat: 9, question: "Penulisan Hanzi yang tepat untuk Pinyin Diànshì (Televisi) adalah...", options: ["电影", "电话", "电视", "电脑"], answer: 2, explanation: "Diànshì (TV) ditulis 电视. 电影 adalah film, 电话 adalah telepon, 电脑 adalah komputer." },
+            { id: 32, cat: 9, question: "Dalam kalimat seperti 我要买鞋子 (Wǒ yào mǎi xiézi), kata 要 (yào) berarti...", options: ["Mau / Ingin / Hendak", "Tidak mau", "Sudah", "Bisa / Boleh"], answer: 0, explanation: "Kata 要 (yào) dalam konteks ini berfungsi sebagai kata kerja bantu yang berarti mau/ingin/hendak." },
+            { id: 33, cat: 9, question: "Apa arti dari kalimat 今天你想买什么？ (Jīntiān nǐ xiǎng mǎi shénme?)", options: ["Hari ini kamu mau pergi ke mana?", "Hari ini kamu ingin membeli apa?", "Kemarin kamu membeli apa?", "Apakah kamu membeli sesuatu hari ini?"], answer: 1, explanation: "今天 (hari ini), 你 (kamu), 想买 (ingin membeli), 什么 (apa)." },
+            { id: 34, cat: 9, question: "Pinyin yang tepat untuk kata benda 鞋子 (sepatu) adalah...", options: ["xiézi", "xuézi", "xiězi", "xīezi"], answer: 0, explanation: "鞋子 dibaca xiézi (nada 2 untuk xié)." },
+            { id: 35, cat: 9, question: "Apa arti dari kalimat 我家有一台电视。 (Wǒ jiā yǒu yì tái diànshì.)", options: ["Rumah saya tidak punya TV.", "Rumah saya punya satu unit TV.", "Rumah saya punya dua unit TV.", "Saya membeli TV di rumah."], answer: 1, explanation: "我家 (rumah saya), 有 (punya), 一台电视 (satu unit TV)." },
+            { id: 36, cat: 9, question: "Kata bantu bilangan (量词) yang tepat untuk kata 书 (buku) adalah...", options: ["个 (gè)", "件 (jiàn)", "本 (běn)", "双 (shuāng)"], answer: 2, explanation: "本 (běn) adalah kata bantu bilangan khusus untuk buku/kamus/jilid." },
+            { id: 37, cat: 9, question: "Apa arti dari kalimat 你有中文词典吗？ (Nǐ yǒu Zhōngwén cídiǎn ma?)", options: ["Apakah kamu punya kamus bahasa Mandarin?", "Apakah kamu mau membeli kamus bahasa Mandarin?", "Kamus bahasa Mandarin ini milik siapa?", "Di mana kamus bahasa Mandarin kamu?"], answer: 0, explanation: "你有 (apakah kamu punya), 中文词典 (kamus bahasa Mandarin), 吗 (apakah)." },
+            { id: 38, cat: 9, question: "Terjemahan yang tepat untuk kalimat 'Saya ingin membeli sepasang sepatu' ke dalam Bahasa Mandarin adalah...", options: ["我要买一件鞋子。 (Wǒ yào mǎi yí jiàn xiézi.)", "我要买双鞋子。 / 我想买双鞋子。 (Wǒ xiǎng mǎi yì shuāng xiézi.)", "我要买一本鞋子。 (Wǒ yào mǎi yì běn xiézi.)", "我要买一台鞋子。 (Wǒ yào mǎi yì tái xiézi.)"], answer: 1, explanation: "Kata bantu bilangan untuk sepatu (鞋子) adalah 双 (shuāng - pasang)." },
+            { id: 39, cat: 9, question: "Apa arti dari kata kerja 买 (mǎi)?", options: ["Jual", "Beli", "Lihat", "Pinjam"], answer: 1, explanation: "买 (mǎi - nada 3) berarti beli. Sedangkan 卖 (mài - nada 4) berarti jual." },
+            { id: 40, cat: 9, question: "Terjemahan yang tepat untuk kalimat 'Di dalam tas saya hanya ada dua buah buku' ke dalam Bahasa Mandarin adalah...", options: ["我的书包里只有两本书。 (Wǒ de shūbāo lǐ zhǐ yǒu liǎng běn shū.)", "我的书包里有两本书。 (Wǒ de shūbāo lǐ yǒu liǎng běn shū.)", "我的书包里也有两本书。 (Wǒ de shūbāo lǐ yě yǒu liǎng běn shū.)", "我的书包里没有两本书。 (Wǒ de shūbāo lǐ méiyǒu liǎng běn shū.)"], answer: 0, explanation: "'hanya ada' = 只有 (zhǐ yǒu), 'dua buah buku' = 两本书 (liǎng běn shū)." }
+        ];
+
+        let activeQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let wrongQuestions = [];
+        let isAnswered = false;
+        let isFollowupMode = false;
+
+        // Start standard full quiz
+        function startQuiz() {
+            activeQuestions = [...questionsData];
+            currentIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+            isFollowupMode = false;
+
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-badge').innerText = "Mode Standar (40 Soal)";
+            document.getElementById('quiz-badge').classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            isAnswered = false;
+            const q = activeQuestions[currentIndex];
+
+            // Reset Next Button
+            const btnNext = document.getElementById('btn-next');
+            btnNext.disabled = true;
+            btnNext.className = "px-6 py-3 rounded-xl bg-gray-800 text-gray-500 font-semibold cursor-not-allowed transition-all duration-200 flex items-center gap-2";
+
+            // Hide Explanation Box
+            const expBox = document.getElementById('explanation-box');
+            expBox.className = "hidden p-4 rounded-xl border transition-all duration-300";
+
+            // Update Progress & Badges
+            const progressPct = ((currentIndex + 1) / activeQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPct}%`;
+            document.getElementById('question-count-text').innerText = `Soal ${currentIndex + 1} dari ${activeQuestions.length}`;
+            document.getElementById('score-live-text').innerText = `Skor: ${score}`;
+
+            document.getElementById('question-id-tag').innerText = `ID: #${q.id}`;
+            document.getElementById('question-category').innerText = q.cat === 8 ? "Bab 8: Jam & Waktu" : "Bab 9: Benda & Pakaian";
+
+            // Set Question Text
+            document.getElementById('question-text').innerText = q.question;
+
+            // Render Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const prefixes = ['A', 'B', 'C', 'D'];
+            q.options.forEach((optText, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-card w-full text-left p-4 rounded-xl bg-gray-800/40 border border-gray-700/60 text-gray-200 font-medium flex items-center justify-between group";
+                btn.onclick = () => selectOption(i);
+                btn.id = `option-${i}`;
+
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-gray-700/60 border border-gray-600 flex items-center justify-center text-xs font-bold text-gray-300 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                            ${prefixes[i]}
+                        </span>
+                        <span class="text-sm sm:text-base">${optText}</span>
+                    </div>
+                    <div class="status-icon text-lg"></div>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const q = activeQuestions[currentIndex];
+            const isCorrect = selectedIndex === q.answer;
+
+            // Disable all option buttons
+            const options = document.querySelectorAll('.option-card');
+            options.forEach(opt => opt.classList.add('disabled'));
+
+            // Selected & Correct Option Elements
+            const selectedBtn = document.getElementById(`option-${selectedIndex}`);
+            const correctBtn = document.getElementById(`option-${q.answer}`);
+
+            if (isCorrect) {
+                score++;
+                selectedBtn.classList.add('option-correct');
+                selectedBtn.querySelector('.status-icon').innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+            } else {
+                selectedBtn.classList.add('option-wrong');
+                selectedBtn.querySelector('.status-icon').innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
+                
+                // Highlight Correct Answer
+                correctBtn.classList.add('option-correct');
+                correctBtn.querySelector('.status-icon').innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+
+                // Track Wrong Question
+                if (!wrongQuestions.some(item => item.id === q.id)) {
+                    wrongQuestions.push(q);
+                }
+            }
+
+            // Update Live Score Text
+            document.getElementById('score-live-text').innerText = `Skor: ${score}`;
+
+            // Show Explanation Box
+            showExplanation(isCorrect, q.explanation);
+
+            // Enable Next Button
+            const btnNext = document.getElementById('btn-next');
+            btnNext.disabled = false;
+            btnNext.className = "px-6 py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-accent hover:from-brand-500 hover:to-cyan-400 text-white font-bold cursor-pointer transition-all duration-200 flex items-center gap-2 shadow-lg shadow-brand-500/20";
+        }
+
+        function showExplanation(isCorrect, expText) {
+            const expBox = document.getElementById('explanation-box');
+            const expTitle = document.getElementById('explanation-title');
+            const expIcon = document.getElementById('explanation-icon');
+            const expTextEl = document.getElementById('explanation-text');
+
+            expBox.classList.remove('hidden');
+
+            if (isCorrect) {
+                expBox.className = "p-4 rounded-xl border transition-all duration-300 bg-emerald-950/30 border-emerald-500/40 text-emerald-300";
+                expIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+                expTitle.innerText = "Jawaban Kamu Benar!";
+            } else {
+                expBox.className = "p-4 rounded-xl border transition-all duration-300 bg-rose-950/30 border-rose-500/40 text-rose-300";
+                expIcon.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-400"></i>`;
+                expTitle.innerText = "Jawaban Kurang Tepat";
+            }
+
+            expTextEl.innerText = expText;
+        }
+
+        function nextQuestion() {
+            if (!isAnswered) return;
+
+            currentIndex++;
+            if (currentIndex < activeQuestions.length) {
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const total = activeQuestions.length;
+            const correct = score;
+            const wrong = total - correct;
+            const percentage = Math.round((correct / total) * 100);
+
+            document.getElementById('res-percentage').innerText = `${percentage}%`;
+            document.getElementById('res-score').innerText = `${correct}/${total}`;
+            document.getElementById('res-correct').innerText = correct;
+            document.getElementById('res-wrong').innerText = wrong;
+
+            // Category Analytics calculation based on original 40 questions
+            let cat1Total = 0, cat1Correct = 0;
+            let cat2Total = 0, cat2Correct = 0;
+
+            activeQuestions.forEach(q => {
+                const isWrong = wrongQuestions.some(w => w.id === q.id);
+                if (q.cat === 8) {
+                    cat1Total++;
+                    if (!isWrong) cat1Correct++;
+                } else if (q.cat === 9) {
+                    cat2Total++;
+                    if (!isWrong) cat2Correct++;
+                }
+            });
+
+            // Update Progress Bars
+            const cat1Pct = cat1Total > 0 ? Math.round((cat1Correct / cat1Total) * 100) : 100;
+            const cat2Pct = cat2Total > 0 ? Math.round((cat2Correct / cat2Total) * 100) : 100;
+
+            document.getElementById('cat1-score').innerText = `${cat1Correct}/${cat1Total} (${cat1Pct}%)`;
+            document.getElementById('cat1-bar').style.width = `${cat1Pct}%`;
+
+            document.getElementById('cat2-score').innerText = `${cat2Correct}/${cat2Total} (${cat2Pct}%)`;
+            document.getElementById('cat2-bar').style.width = `${cat2Pct}%`;
+
+            // Dynamic Evaluation Text
+            const evalBox = document.getElementById('evaluation-box');
+            if (percentage === 100) {
+                evalBox.innerHTML = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-star mr-1"></i> Sempurna!</span> Kamu menguasai seluruh materi Bab 8 dan Bab 9 dengan sangat baik!`;
+            } else if (cat1Pct < cat2Pct) {
+                evalBox.innerHTML = `<span class="text-amber-400 font-bold"><i class="fa-solid fa-lightbulb mr-1"></i> Area Evaluasi:</span> Kamu perlu meningkatkan pemahaman materi <strong>Bab 8 (Jam, Durasi & Pola Waktu)</strong>.`;
+            } else if (cat2Pct < cat1Pct) {
+                evalBox.innerHTML = `<span class="text-amber-400 font-bold"><i class="fa-solid fa-lightbulb mr-1"></i> Area Evaluasi:</span> Kamu perlu lebih banyak berlatih di materi <strong>Bab 9 (Kata Bantu Bilangan & Kata Benda)</strong>.`;
+            } else {
+                evalBox.innerHTML = `<span class="text-cyan-400 font-bold"><i class="fa-solid fa-circle-info mr-1"></i> Catatan:</span> Performa kamu cukup seimbang antar bab. Pertahankan konsistensi latihan!`;
+            }
+
+            // Followup Button Setup
+            const followupBtn = document.getElementById('btn-followup');
+            const wrongBadge = document.getElementById('wrong-count-badge');
+            wrongBadge.innerText = wrongQuestions.length;
+
+            if (wrongQuestions.length === 0) {
+                followupBtn.disabled = true;
+                followupBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                followupBtn.disabled = false;
+                followupBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function startFollowupQuiz() {
+            if (wrongQuestions.length === 0) return;
+
+            activeQuestions = [...wrongQuestions];
+            currentIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+            isFollowupMode = true;
+
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-badge').innerText = `Follow-up Quiz (${activeQuestions.length} Soal Salah)`;
+            document.getElementById('quiz-badge').classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        function restartFullQuiz() {
+            startQuiz();
+        }
+    </script>
+</body>
+</html>
