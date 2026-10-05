@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarin Quiz Level EASE 1 G11</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        darkbg: '#0f172a',
+                        darkcard: '#1e293b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="w-full glass-panel sticky top-0 z-50 border-b border-slate-800/80 px-4 py-3">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid font-bold text-white text-lg">華</i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base md:text-lg tracking-wide text-white flex items-center gap-2">
+                        Latsol Mandarin <span class="text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 rounded-full font-medium">EASE 1 G11</span>
+                    </h1>
+                </div>
+            </div>
+            <div id="quiz-badge" class="hidden sm:flex items-center gap-2 bg-slate-800/80 border border-slate-700/60 text-slate-300 text-xs px-3 py-1.5 rounded-full">
+                <i class="fa-solid fa-list-check text-indigo-400"></i>
+                <span id="badge-text">Mode Utama (40 Soal)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl w-full mx-auto p-4 md:p-6 flex-grow flex flex-col justify-center">
+
+        <!-- START SCREEN -->
+        <div id="start-screen" class="glass-panel rounded-3xl p-6 md:p-10 text-center shadow-2xl space-y-6 my-auto border border-slate-700/50">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-indigo-600/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-3xl shadow-inner">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">Interactive Mandarin Practice</h2>
+                <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto">
+                    Uji pemahaman Pinyin, Hanzi, Tata Bahasa (Grammar), dan Kosakata Mandarin SMA / Level EASE 1 G11.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-md mx-auto py-2">
+                <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl p-3 text-center">
+                    <span class="block text-xl font-bold text-indigo-400">40</span>
+                    <span class="text-xs text-slate-400">Total Soal</span>
+                </div>
+                <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl p-3 text-center">
+                    <span class="block text-xl font-bold text-emerald-400">Instant</span>
+                    <span class="text-xs text-slate-400">Feedback</span>
+                </div>
+                <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl p-3 text-center col-span-2 sm:col-span-1">
+                    <span class="block text-xl font-bold text-amber-400">Review</span>
+                    <span class="text-xs text-slate-400">Pembahasan</span>
+                </div>
+            </div>
+
+            <button id="start-btn" onclick="startQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 mx-auto">
+                <span>Mulai Kerjakan Quiz</span>
+                <i class="fa-solid fa-arrow-right text-sm"></i>
+            </button>
+        </div>
+
+        <!-- QUIZ SCREEN -->
+        <div id="quiz-screen" class="hidden space-y-6 my-auto">
+            
+            <!-- Progress Section -->
+            <div class="space-y-2">
+                <div class="flex justify-between items-center text-xs md:text-sm text-slate-400">
+                    <span id="progress-text" class="font-medium text-slate-300">Soal 1 dari 40</span>
+                    <span id="progress-percent" class="font-bold text-indigo-400">0%</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700/50">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all duration-300 w-0"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="glass-panel rounded-3xl p-6 md:p-8 shadow-xl space-y-6 border border-slate-700/60">
+                <!-- Question Title -->
+                <div class="space-y-3">
+                    <span id="question-tag" class="inline-block px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-lg">
+                        Soal #1
+                    </span>
+                    <h2 id="question-text" class="text-lg md:text-xl font-medium text-slate-100 leading-relaxed">
+                        --
+                    </h2>
+                </div>
+
+                <!-- Options -->
+                <div id="options-container" class="grid grid-cols-1 gap-3">
+                    <!-- Dynamic Options Inserted Here -->
+                </div>
+
+                <!-- Interactive Explanation Panel (Hidden initially) -->
+                <div id="explanation-panel" class="hidden rounded-2xl p-4 md:p-5 border transition-all duration-300">
+                    <div class="flex items-start gap-3">
+                        <div id="explanation-icon" class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 id="explanation-title" class="font-semibold text-sm">--</h4>
+                            <p id="explanation-text" class="text-xs md:text-sm leading-relaxed text-slate-300">--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <div class="text-xs text-slate-400 italic">
+                    *Pilih salah satu jawaban untuk melihat hasil & pembahasannya.
+                </div>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-600 text-white font-medium rounded-xl shadow-lg transition-all duration-200 flex items-center gap-2">
+                    <span id="next-btn-text">Soal Selanjutnya</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div id="result-screen" class="hidden glass-panel rounded-3xl p-6 md:p-10 shadow-2xl space-y-8 my-auto border border-slate-700/50">
+            
+            <!-- Result Header -->
+            <div class="text-center space-y-3">
+                <div id="score-badge-icon" class="w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl shadow-xl">
+                    <i class="fa-solid"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold text-white">Ringkasan Hasil Quiz</h2>
+                <p id="result-feedback-text" class="text-slate-400 text-sm md:text-base">--</p>
+            </div>
+
+            <!-- Score Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 text-center space-y-1">
+                    <span class="text-xs text-slate-400">Total Skor</span>
+                    <div id="stat-score" class="text-2xl md:text-3xl font-extrabold text-indigo-400">0/40</div>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 text-center space-y-1">
+                    <span class="text-xs text-slate-400">Persentase</span>
+                    <div id="stat-percent" class="text-2xl md:text-3xl font-extrabold text-emerald-400">0%</div>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 text-center space-y-1">
+                    <span class="text-xs text-slate-400">Jawaban Benar</span>
+                    <div id="stat-correct" class="text-2xl md:text-3xl font-extrabold text-emerald-500">0</div>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 text-center space-y-1">
+                    <span class="text-xs text-slate-400">Jawaban Salah</span>
+                    <div id="stat-wrong" class="text-2xl md:text-3xl font-extrabold text-rose-500">0</div>
+                </div>
+            </div>
+
+            <!-- Weakness Analysis -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-3">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-semibold text-slate-200 text-sm md:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-amber-400"></i>
+                        <span>Analisis Kelemahan (Weakness Analysis)</span>
+                    </h3>
+                    <span id="wrong-count-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 font-medium">
+                        0 Soal Perlu Diperbaiki
+                    </span>
+                </div>
+
+                <div id="weakness-list-container" class="max-h-48 overflow-y-auto custom-scrollbar pr-1 space-y-2">
+                    <!-- Dynamic wrong items list -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                <button id="followup-btn" onclick="startFollowupQuiz()" class="flex-1 px-5 py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Follow-up Quiz (Ulangi Soal Salah)</span>
+                </button>
+                <button onclick="resetAllQuiz()" class="px-5 py-3.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold rounded-xl shadow transition-all duration-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>Ulangi Semua Soal</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-4 text-xs text-slate-500 border-t border-slate-800/60">
+        Mandarin Practice Portal &copy; EASE 1 Level G11
+    </footer>
+
+    <script>
+        // Full Quiz Database (40 Questions)
+        const quizDatabase = [
+            {
+                id: 1,
+                question: 'Penulisan Hanzi dari jam "10.05" pada kalimat "现在十点五分了" dibaca...',
+                options: [
+                    'Xiànzài shí diǎn wǔ fēn le',
+                    'Xiànzài bā diǎn wǔ fēn le',
+                    'Xiànzài shí diǎn ban le',
+                    'Xiànzài wǔ diǎn shí fēn le'
+                ],
+                correct: 0,
+                explanation: '十 (shí) = 10, 点 (diǎn) = jam/pukul, 五 (wǔ) = 5, 分 (fēn) = menit. Jadi "现在十点五分了" dibaca "Xiànzài shí diǎn wǔ fēn le" (Sekarang jam 10 lewat 5 menit).'
+            },
+            {
+                id: 2,
+                question: 'Arti dari kalimat "你有汉语词典吗?" nǐ yǒu hànyǔ cídiǎn ma? adalah...',
+                options: [
+                    'Apakah kamu punya kamus Bahasa Mandarin?',
+                    'Apakah kamu punya buku Bahasa Mandarin?',
+                    'Berapa harga kamus Bahasa Mandarin?',
+                    'Apakah kamu suka belajar Bahasa Mandarin?'
+                ],
+                correct: 0,
+                explanation: '你 (nǐ) = kamu, 有 (yǒu) = punya, 汉语 (hànyǔ) = bahasa Mandarin, 词典 (cídiǎn) = kamus, 吗 (ma) = apakah. Maka artinya "Apakah kamu punya kamus Bahasa Mandarin?".'
+            },
+            {
+                id: 3,
+                question: 'Pinyin yang tepat untuk Hanzi "起床" adalah...',
+                options: [
+                    'Shuìjiào',
+                    'Kànshū',
+                    'Qǐchuáng',
+                    'Píngshí'
+                ],
+                correct: 2,
+                explanation: 'Hanzi 起床 dibaca Qǐchuáng yang berarti "bangun tidur". Shuìjiào (tidur), Kànshū (membaca buku), Píngshí (biasanya).'
+            },
+            {
+                id: 4,
+                question: 'Pinyin dari kosa kata "鞋子" adalah...',
+                options: [
+                    'Xiézi',
+                    'Shubāo',
+                    'Yīfú',
+                    'Cídiǎn'
+                ],
+                correct: 0,
+                explanation: '鞋子 dibaca "Xiézi" yang berarti "sepatu".'
+            },
+            {
+                id: 5,
+                question: 'Kosa kata "15 menit" dalam Bahasa Mandarin disebut...',
+                options: [
+                    '三刻 (Sān kè)',
+                    '半 (Bàn)',
+                    '一刻 (Yī kè)',
+                    '分 (Fēn)'
+                ],
+                correct: 2,
+                explanation: '刻 (kè) adalah unit 15 menit (seperempat jam). 一刻 (yī kè) = 1 x 15 menit = 15 menit. 三刻 (sān kè) = 45 menit, 半 (bàn) = setengah jam (30 menit).'
+            },
+            {
+                id: 6,
+                question: 'Pukul 13.40 dalam bahasa Mandarin dinyatakan sebagai...',
+                options: [
+                    '十三点十四分 - shísān diǎn shísì fēn',
+                    '一点十四分 - yī diǎn shísì fēn',
+                    '一点四十分 - yī diǎn sìshí fēn',
+                    '十三点四十分 - shísān diǎn sìshí fēn'
+                ],
+                correct: 3,
+                explanation: '13 = 十三 (shísān), 点 (diǎn) = jam, 40 = 四十 (sìshí), 分 (fēn) = menit. Jadi 13.40 adalah 十三点四十分 (shísān diǎn sìshí fēn).'
+            },
+            {
+                id: 7,
+                question: 'Maksud dari kalimat "今天你要买什么?" Jīntiān nǐ yào mǎi shénme? adalah...',
+                options: [
+                    'Besok kamu mau beli apa?',
+                    'Hari ini kamu mau beli apa?',
+                    'Hari ini kamu sudah beli apa?',
+                    'Hari ini kamu mau pergi ke mana?'
+                ],
+                correct: 1,
+                explanation: '今天 (jīntiān) = hari ini, 你 (nǐ) = kamu, 要 (yào) = mau/ingin, 买 (mǎi) = membeli, 什么 (shénme) = apa. Artinya: "Hari ini kamu mau beli apa?".'
+            },
+            {
+                id: 8,
+                question: 'Hanzi yang tepat untuk pinyin "Yīfú" adalah...',
+                options: [
+                    '鞋子',
+                    '电视',
+                    '衣服',
+                    '电脑'
+                ],
+                correct: 2,
+                explanation: 'Yīfú ditulis 衣服 (pakaian/baju). 鞋子 (xiézi = sepatu), 电视 (diànshì = TV), 电脑 (diànnǎo = komputer).'
+            },
+            {
+                id: 9,
+                question: 'Kata bantu bilangan "件" jiàn digunakan untuk benda...',
+                options: [
+                    '电脑 ( diànnǎo )',
+                    '鞋子 ( xiézi )',
+                    '衣服 ( yīfú )',
+                    '书 ( shu )'
+                ],
+                correct: 2,
+                explanation: '件 (jiàn) adalah kata bantu bilangan (量词) untuk pakaian/baju (衣服). Pakaian dihitung dengan 件 (yī jiàn yīfú).'
+            },
+            {
+                id: 10,
+                question: 'Arti dari kata "才" ( cái ) adalah...',
+                options: [
+                    'Sudah',
+                    'Baru',
+                    'Suka',
+                    'Lagi'
+                ],
+                correct: 1,
+                explanation: 'Kata 才 (cái) digunakan untuk menyatakan kejadian yang baru saja terjadi atau terjadi lambat ("baru / baru saja").'
+            },
+            {
+                id: 11,
+                question: 'Apakah arti dari kalimat "在你的书包里有几本书?" ( Zài nǐ de shūbāo li yǒu jǐ běn shū? )?',
+                options: [
+                    'Berapa banyak komputer yang ada di dalam tasmu?',
+                    'Di dalam tas sekolahmu ada berapa banyak buku?',
+                    'Di mana kamu membeli buku sekolah?',
+                    'Apakah kamu punya dua buah buku di tas?'
+                ],
+                correct: 1,
+                explanation: '在...里 (zài...li) = di dalam..., 你的 (nǐ de) = milikmu, 书包 (shūbāo) = tas sekolah, 有 (yǒu) = ada, 几 (jǐ) = berapa, 本 (běn) = jilid (kata bantu), 书 (shū) = buku.'
+            },
+            {
+                id: 12,
+                question: 'Kata "三刻" (sān kè) mewakili durasi waktu selama...',
+                options: [
+                    '15 menit',
+                    '30 menit',
+                    '60 menit',
+                    '45 menit'
+                ],
+                correct: 3,
+                explanation: '一刻 (yī kè) = 15 menit. Maka 三刻 (sān kè) = 3 x 15 menit = 45 menit.'
+            },
+            {
+                id: 13,
+                question: 'Kalimat "你今天几点上课?" ( Nǐ jīntiān jǐ diǎn shàngkè? ) mempunyai arti...',
+                options: [
+                    'Kamu hari ini pukul berapa selesai kelas?',
+                    'Kamu hari ini pukul berapa masuk kelas?',
+                    'Kamu hari ini pukul berapa bangun tidur?',
+                    'Kamu hari ini pukul berapa pergi?'
+                ],
+                correct: 1,
+                explanation: '上课 (shàngkè) artinya masuk kelas / mulai pelajaran. 几点 (jǐ diǎn) = jam berapa.'
+            },
+            {
+                id: 14,
+                question: 'Kalimat "我平时两个小时看书。" ( Wǒ píngshí liǎng gè xiǎoshí kànshū ) artinya...',
+                options: [
+                    'Saya kadang-kadang membaca buku selama 2 jam.',
+                    'Saya biasanya membaca buku selama 2 jam.',
+                    'Saya setiap hari membaca buku jam 2.',
+                    'Saya suka membaca buku 2 jam lagi.'
+                ],
+                correct: 1,
+                explanation: '平时 (píngshí) = biasanya, 两个小时 (liǎng gè xiǎoshí) = 2 jam (durasi), 看书 (kànshū) = membaca buku.'
+            },
+            {
+                id: 15,
+                question: 'Terjemahan ke dalam Bahasa Mandarin untuk kalimat "Saya ingin membeli sepasang sepatu" adalah...',
+                options: [
+                    '我要买一件衣服。 ( Wǒ yào mǎi yī jiàn yīfú. )',
+                    '我要买一双鞋子。 ( Wǒ yào mǎi yī shuāng xiézi. )',
+                    '我想买一个书包。 ( Wǒ xiǎng mǎi yī gè shūbāo. )',
+                    '我有一双鞋子。 ( Wǒ yǒu yī shuāng xiézi. )'
+                ],
+                correct: 1,
+                explanation: '"Sepasang sepatu" menggunakan kata bantu 双 (shuāng) -> 一双鞋子 (yī shuāng xiézi). "Ingin membeli" = 要买 (yào mǎi).'
+            },
+            {
+                id: 16,
+                question: 'Pinyin yang tepat untuk Hanzi "书包" adalah...',
+                options: [
+                    'Shūbāo',
+                    'Xiézi',
+                    'Yīfú',
+                    'Diànshì'
+                ],
+                correct: 0,
+                explanation: '书包 dibaca Shūbāo (tas sekolah).'
+            },
+            {
+                id: 17,
+                question: 'Bagaimanakah penulisan Hanzi untuk kalimat "Wǒ xǐhuān kànshū"?',
+                options: [
+                    '我喜欢看书。',
+                    '去准备吧。',
+                    '我七点起床。',
+                    '我每天看书。'
+                ],
+                correct: 0,
+                explanation: '我 (wǒ = saya), 喜欢 (xǐhuān = suka), 看书 (kànshū = membaca buku).'
+            },
+            {
+                id: 18,
+                question: 'Kosa kata "双" shuāng merupakan kata bantu bilangan yang digunakan untuk benda berpasangan, artinya adalah...',
+                options: [
+                    'Sebuah',
+                    'Sepasang',
+                    'Selembar',
+                    'Stik/Bilah'
+                ],
+                correct: 1,
+                explanation: '双 (shuāng) artinya sepasang (digunakan untuk sepatu, kaus kaki, sumpit, dll).'
+            },
+            {
+                id: 19,
+                question: 'Pinyin dari kata "好看" adalah...',
+                options: [
+                    'Hǎokàn',
+                    'Hǎochī',
+                    'Hǎotīng',
+                    'Kànshū'
+                ],
+                correct: 0,
+                explanation: '好看 dibaca Hǎokàn (bagus dilihat/cantik/menarik). Hǎochī (enak dimakan), Hǎotīng (enak didengar).'
+            },
+            {
+                id: 20,
+                question: 'Maksud dari kalimat "我只有一台电视" Wǒ zhǐyǒu yī tái diànshì adalah...',
+                options: [
+                    'Saya punya dua buah televisi.',
+                    'Saya hanya punya satu buah televisi.',
+                    'Saya tidak punya televisi.',
+                    'Saya ingin membeli satu buah televisi.'
+                ],
+                correct: 1,
+                explanation: '只 (zhǐ) = hanya, 有 (yǒu) = punya, 一台 (yī tái) = 1 unit, 电视 (diànshì) = TV.'
+            },
+            {
+                id: 21,
+                question: 'Apa arti dari kosa kata Hanzi "点" (diǎn)?',
+                options: [
+                    'menit',
+                    'setengah',
+                    'kadang kadang',
+                    'pukul/jam'
+                ],
+                correct: 3,
+                explanation: '点 (diǎn) digunakan untuk menunjukkan jam/pukul (titik waktu). Menit = 分 (fēn), setengah = 半 (bàn).'
+            },
+            {
+                id: 22,
+                question: '"Kadang-kadang" dalam bahasa Mandarin dituliskan dengan Hanzi...',
+                options: [
+                    '差不多',
+                    '有时候',
+                    '平时',
+                    '小时'
+                ],
+                correct: 1,
+                explanation: '有时候 (yǒu shíhou) artinya kadang-kadang. 差不多 (kurang lebih), 平时 (biasanya), 小时 (jam/durasi).'
+            },
+            {
+                id: 23,
+                question: 'Kata bantu bilangan (量词) yang digunakan untuk barang elektronik seperti komputer atau televisi adalah...',
+                options: [
+                    '件 ( jiàn )',
+                    '双 ( shuāng )',
+                    '本 ( běn )',
+                    '台 ( tái )'
+                ],
+                correct: 3,
+                explanation: '台 (tái) adalah kata bantu unit/buah untuk mesin/elektronik seperti komputer (电脑) dan TV (电视).'
+            },
+            {
+                id: 24,
+                question: 'Arti dari pola kalimat "现在几点了?" ( Xiànzài jǐ diǎn le? ) adalah...',
+                options: [
+                    'Kamu bangun pukul berapa?',
+                    'Sekarang pukul berapa?',
+                    'Hari ini ada kelas pukul berapa?',
+                    'Berapa jam kamu membaca buku?'
+                ],
+                correct: 1,
+                explanation: '现在 (xiànzài) = sekarang, 几点 (jǐ diǎn) = jam berapa, 了 (le) = sudah/sekarang.'
+            },
+            {
+                id: 25,
+                question: 'Terjemahan yang benar untuk kalimat "Di dalam tas sekolahku hanya ada dua buah buku" adalah...',
+                options: [
+                    '在我的书包里只有两本书。 ( Zài wǒ de shūbāo li zhǐ yǒu liǎng běn shū. )',
+                    '我的书包里有两本书。 ( Wǒ de shūbāo li yǒu liǎng běn shū. )',
+                    '在我的书包里有三本书。 ( Zài wǒ de shūbāo li yǒu sān běn shū. )',
+                    '我有两个书包。 ( wǒ yǒu liǎng gè shūbāo. )'
+                ],
+                correct: 0,
+                explanation: '"hanya ada" = 只有 (zhǐ yǒu), "dua buah buku" = 两本书 (liǎng běn shū).'
+            },
+            {
+                id: 26,
+                question: 'Kosa kata "要" yào dalam kata kerja memiliki arti...',
+                options: [
+                    'Membeli',
+                    'Memiliki',
+                    'Ingin / Mau',
+                    'Pergi'
+                ],
+                correct: 2,
+                explanation: '要 (yào) sebagai kata kerja bantu berarti "ingin" / "mau" / "hendak".'
+            },
+            {
+                id: 27,
+                question: 'Pinyin "Píngshí" memiliki arti...',
+                options: [
+                    'Kadang-kadang',
+                    'Kurang lebih',
+                    'Biasanya',
+                    'Baru'
+                ],
+                correct: 2,
+                explanation: '平时 (píngshí) artinya biasanya / pada umumnya.'
+            },
+            {
+                id: 28,
+                question: 'Apa arti dari kata "看书" ( kànshū )?',
+                options: [
+                    'Tidur',
+                    'Membaca buku',
+                    'Belajar Bahasa Mandarin',
+                    'Bangun tidur'
+                ],
+                correct: 1,
+                explanation: '看 (kàn = melihat/membaca) + 书 (shū = buku) = 看书 (kànshū) yaitu membaca buku.'
+            },
+            {
+                id: 29,
+                question: 'Manakah Hanzi yang tepat untuk pinyin "Xiǎoshí" (Jam/Durasi jam)?',
+                options: [
+                    '小时',
+                    '平时',
+                    '差不多',
+                    '有时候'
+                ],
+                correct: 0,
+                explanation: '小时 (xiǎoshí) artinya jam/durasi jam.'
+            },
+            {
+                id: 30,
+                question: 'Penulisan Hanzi untuk pinyin "Diànshì" (televisi) adalah...',
+                options: [
+                    '电脑',
+                    '电视',
+                    '词典',
+                    '电是'
+                ],
+                correct: 1,
+                explanation: '电视 (diànshì) adalah televisi. 电脑 (diànnǎo) adalah komputer.'
+            },
+            {
+                id: 31,
+                question: 'Apa arti dari kosa kata "词典" ( Cídiǎn )?',
+                options: [
+                    'Buku paket',
+                    'Kamus',
+                    'Tas sekolah',
+                    'Komputer'
+                ],
+                correct: 1,
+                explanation: '词典 (cídiǎn) artinya kamus.'
+            },
+            {
+                id: 32,
+                question: 'Kata bantu bilangan yang paling tepat untuk kata "书" shū adalah...',
+                options: [
+                    '台 ( tái )',
+                    '件 ( jiàn )',
+                    '本 ( běn )',
+                    '双 ( shuāng )'
+                ],
+                correct: 2,
+                explanation: '本 (běn) digunakan sebagai kata bantu jilid/buah untuk buku (书).'
+            },
+            {
+                id: 33,
+                question: 'Kalimat "现在八点十分了!" ( Xiànzài bā diǎn shí fēn le! ) berarti...',
+                options: [
+                    'Sekarang pukul 08.00',
+                    'Sekarang pukul 08.05',
+                    'Sekarang pukul 08.10',
+                    'Sekarang pukul 08.15'
+                ],
+                correct: 2,
+                explanation: '八点 (bā diǎn = pukul 8), 十分 (shí fēn = 10 menit). Jadi artinya sekarang pukul 08.10.'
+            },
+            {
+                id: 34,
+                question: 'Kata "只" ( zhǐ ) dalam konteks tata bahasa bab ini memiliki arti...',
+                options: [
+                    'Juga',
+                    'Sangat',
+                    'Hanya',
+                    'Ingin'
+                ],
+                correct: 2,
+                explanation: '只 (zhǐ) digunakan sebagai kata keterangan yang berarti "hanya" / "saja".'
+            },
+            {
+                id: 35,
+                question: 'Pinyin dari "半" adalah...',
+                options: [
+                    'Bān',
+                    'Bàn',
+                    'Bǎn',
+                    'Bā'
+                ],
+                correct: 1,
+                explanation: '半 dibaca Bàn (nada 4) yang berarti setengah.'
+            },
+            {
+                id: 36,
+                question: 'Hanzi dari kata "Chàbuduō" (kurang lebih) adalah...',
+                options: [
+                    '差不多',
+                    '有时候',
+                    '一个小时',
+                    '只有一个'
+                ],
+                correct: 0,
+                explanation: '差不多 (chàbuduō) berarti kurang lebih / hampir.'
+            },
+            {
+                id: 37,
+                question: 'Kosa kata "买" mǎi artinya adalah...',
+                options: [
+                    'Membeli',
+                    'Menjual',
+                    'Membaca',
+                    'Meminta'
+                ],
+                correct: 0,
+                explanation: '买 (mǎi - nada 3) berarti membeli. (Sedangkan 卖 mài nada 4 berarti menjual).'
+            },
+            {
+                id: 38,
+                question: 'Arti dari kalimat "这件衣服很好看" Zhè jiàn yīfú hěn hǎokàn adalah...',
+                options: [
+                    'Baju ini sangat mahal.',
+                    'Baju ini sangat bagus.',
+                    'Sepatu ini sangat bagus.',
+                    'Baju ini sangat besar.'
+                ],
+                correct: 1,
+                explanation: '这件衣服 (baju ini) + 很好看 (sangat bagus/cantik dilihat).'
+            },
+            {
+                id: 39,
+                question: 'Terjemahan bahasa Indonesia dari kalimat "我七点半起床。" ( Wǒ qī diǎn bàn qǐchuáng ) adalah...',
+                options: [
+                    'Saya bangun pukul 07.00.',
+                    'Saya bangun pukul 07.15.',
+                    'Saya bangun pukul 07.30.',
+                    'Saya bangun pukul 08.30.'
+                ],
+                correct: 2,
+                explanation: '七点半 (qī diǎn bàn = jam 7 setengah / 07.30), 起床 (qǐchuáng = bangun tidur).'
+            },
+            {
+                id: 40,
+                question: 'Apa fungsi partikel "了" ( le ) berdasarkan materi?',
+                options: [
+                    'Menyatakan kepunyaan/pemilik',
+                    'Menyatakan pertanyaaan',
+                    'Menyatakan keadaan sudah selesai atau lewat',
+                    'Menyatakan tempat dan posisi'
+                ],
+                correct: 2,
+                explanation: 'Partikel 了 (le) menunjukkan perubahan keadaan atau tindakan yang sudah terjadi/selesai.'
+            }
+        ];
+
+        // App State
+        let activeQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {}; // { questionId: selectedOptionIndex }
+        let isFollowupMode = false;
+        let wrongQuestionsHistory = [];
+
+        // DOM Elements
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const quizBadge = document.getElementById('quiz-badge');
+        const badgeText = document.getElementById('badge-text');
+
+        function startQuiz() {
+            activeQuestions = [...quizDatabase];
+            isFollowupMode = false;
+            userAnswers = {};
+            currentQuestionIndex = 0;
+            
+            badgeText.innerText = "Mode Utama (40 Soal)";
+            quizBadge.classList.remove('hidden');
+
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const currentQ = activeQuestions[currentQuestionIndex];
+            const totalQ = activeQuestions.length;
+
+            // Update Progress Bar & Text
+            const progressPercent = Math.round(((currentQuestionIndex + 1) / totalQ) * 100);
+            document.getElementById('progress-text').innerText = `Soal ${currentQuestionIndex + 1} dari ${totalQ}`;
+            document.getElementById('progress-percent').innerText = `${progressPercent}%`;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            // Render Tag & Text
+            document.getElementById('question-tag').innerText = `Soal #${currentQ.id}`;
+            document.getElementById('question-text').innerText = currentQ.question;
+
+            // Render Options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const selectedOption = userAnswers[currentQ.id];
+            const hasAnswered = selectedOption !== undefined;
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            currentQ.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full p-4 rounded-2xl border text-left transition-all duration-200 flex items-center justify-between group cursor-pointer `;
+
+                let stateClasses = "bg-slate-800/60 border-slate-700/60 hover:bg-slate-700/50 hover:border-slate-500 text-slate-200";
+
+                if (hasAnswered) {
+                    btn.disabled = true;
+                    btn.classList.remove('cursor-pointer');
+
+                    if (idx === currentQ.correct) {
+                        // Correct Option (Green)
+                        stateClasses = "bg-emerald-500/15 border-emerald-500/60 text-emerald-200 font-medium";
+                    } else if (idx === selectedOption) {
+                        // Wrong Choice selected by User (Red)
+                        stateClasses = "bg-rose-500/15 border-rose-500/60 text-rose-200 font-medium";
+                    } else {
+                        // Other unselected options
+                        stateClasses = "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60";
+                    }
+                }
+
+                btn.className += ` ${stateClasses}`;
+
+                // Inner HTML
+                let iconMarkup = '';
+                if (hasAnswered) {
+                    if (idx === currentQ.correct) {
+                        iconMarkup = `<div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></div>`;
+                    } else if (idx === selectedOption) {
+                        iconMarkup = `<div class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></div>`;
+                    }
+                }
+
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3.5 pr-2">
+                        <span class="w-7 h-7 rounded-xl ${hasAnswered && idx === currentQ.correct ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-700/50 text-slate-400'} flex items-center justify-center text-xs font-bold border border-slate-600/40 shrink-0">
+                            ${optionLabels[idx]}
+                        </span>
+                        <span class="text-sm md:text-base">${optText}</span>
+                    </div>
+                    ${iconMarkup}
+                `;
+
+                if (!hasAnswered) {
+                    btn.onclick = () => selectOption(idx);
+                }
+
+                optionsContainer.appendChild(btn);
+            });
+
+            // Explanation Panel
+            const expPanel = document.getElementById('explanation-panel');
+            const expIcon = document.getElementById('explanation-icon');
+            const expTitle = document.getElementById('explanation-title');
+            const expText = document.getElementById('explanation-text');
+
+            if (hasAnswered) {
+                const isCorrect = selectedOption === currentQ.correct;
+                expPanel.classList.remove('hidden');
+
+                if (isCorrect) {
+                    expPanel.className = "rounded-2xl p-4 md:p-5 border transition-all duration-300 bg-emerald-950/30 border-emerald-500/30 text-emerald-200";
+                    expIcon.className = "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 bg-emerald-500/20 text-emerald-400";
+                    expIcon.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+                    expTitle.innerText = "Jawaban Benar!";
+                    expTitle.className = "font-semibold text-sm text-emerald-300";
+                } else {
+                    expPanel.className = "rounded-2xl p-4 md:p-5 border transition-all duration-300 bg-rose-950/30 border-rose-500/30 text-rose-200";
+                    expIcon.className = "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 bg-rose-500/20 text-rose-400";
+                    expIcon.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
+                    expTitle.innerText = "Jawaban Kurang Tepat!";
+                    expTitle.className = "font-semibold text-sm text-rose-300";
+                }
+
+                expText.innerText = currentQ.explanation;
+            } else {
+                expPanel.classList.add('hidden');
+            }
+
+            // Next / Finish Button State
+            const nextBtn = document.getElementById('next-btn');
+            const nextBtnText = document.getElementById('next-btn-text');
+
+            nextBtn.disabled = !hasAnswered;
+
+            if (currentQuestionIndex === totalQ - 1) {
+                nextBtnText.innerText = "Lihat Ringkasan";
+            } else {
+                nextBtnText.innerText = "Soal Selanjutnya";
+            }
+        }
+
+        function selectOption(index) {
+            const currentQ = activeQuestions[currentQuestionIndex];
+            userAnswers[currentQ.id] = index;
+            renderQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < activeQuestions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            let correctCount = 0;
+            let wrongQuestions = [];
+
+            activeQuestions.forEach(q => {
+                const userChoice = userAnswers[q.id];
+                if (userChoice === q.correct) {
+                    correctCount++;
+                } else {
+                    wrongQuestions.push(q);
+                }
+            });
+
+            wrongQuestionsHistory = wrongQuestions; // Save for followup
+
+            const total = activeQuestions.length;
+            const wrongCount = total - correctCount;
+            const percentage = Math.round((correctCount / total) * 100);
+
+            // Update Stats Display
+            document.getElementById('stat-score').innerText = `${correctCount}/${total}`;
+            document.getElementById('stat-percent').innerText = `${percentage}%`;
+            document.getElementById('stat-correct').innerText = correctCount;
+            document.getElementById('stat-wrong').innerText = wrongCount;
+
+            // Score Badge & Feedback
+            const badgeIcon = document.getElementById('score-badge-icon');
+            const feedbackText = document.getElementById('result-feedback-text');
+
+            if (percentage >= 85) {
+                badgeIcon.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl shadow-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-trophy"></i>`;
+                feedbackText.innerText = "Luar biasa! Pemahaman Mandarin kamu sangat hebat!";
+            } else if (percentage >= 65) {
+                badgeIcon.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl shadow-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-star"></i>`;
+                feedbackText.innerText = "Bagus! Teruskan latihan untuk menyempurnakan kelemahanmu.";
+            } else {
+                badgeIcon.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl shadow-xl bg-amber-500/20 border border-amber-500/40 text-amber-400";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-book-open-reader"></i>`;
+                feedbackText.innerText = "Jangan berkecil hati, manfaatkan fitur Follow-up Quiz untuk melatih soal yang salah.";
+            }
+
+            // Weakness List
+            const weaknessContainer = document.getElementById('weakness-list-container');
+            const wrongBadge = document.getElementById('wrong-count-badge');
+            const followupBtn = document.getElementById('followup-btn');
+
+            wrongBadge.innerText = `${wrongCount} Soal Perlu Diperbaiki`;
+
+            if (wrongCount === 0) {
+                weaknessContainer.innerHTML = `
+                    <div class="text-center py-6 text-slate-400 text-xs sm:text-sm">
+                        <i class="fa-solid fa-circle-check text-emerald-400 text-2xl mb-2 block"></i>
+                        Sempurna! Kamu menjawab semua soal dengan benar. Tidak ada kelemahan terdeteksi.
+                    </div>
+                `;
+                followupBtn.disabled = true;
+                followupBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                followupBtn.disabled = false;
+                followupBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                weaknessContainer.innerHTML = '';
+                wrongQuestions.forEach(q => {
+                    const userSelectedIdx = userAnswers[q.id];
+                    const userSelectedText = userSelectedIdx !== undefined ? q.options[userSelectedIdx] : 'Tidak dijawab';
+                    const correctText = q.options[q.correct];
+
+                    const item = document.createElement('div');
+                    item.className = "p-3 bg-slate-800/80 rounded-xl border border-slate-700/60 text-xs space-y-1.5";
+                    item.innerHTML = `
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="font-bold text-amber-300">Soal #${q.id}</span>
+                            <span class="text-rose-400 font-medium">Jawaban Kamu: ${userSelectedText}</span>
+                        </div>
+                        <p class="text-slate-200 font-medium">${q.question}</p>
+                        <div class="text-emerald-400 font-medium">Kunci: ${correctText}</div>
+                        <div class="text-slate-400 text-[11px] pt-1 border-t border-slate-700/50">${q.explanation}</div>
+                    `;
+                    weaknessContainer.appendChild(item);
+                });
+            }
+        }
+
+        function startFollowupQuiz() {
+            if (wrongQuestionsHistory.length === 0) return;
+
+            activeQuestions = [...wrongQuestionsHistory];
+            isFollowupMode = true;
+            userAnswers = {};
+            currentQuestionIndex = 0;
+
+            badgeText.innerText = `Mode Follow-up (${activeQuestions.length} Soal Salah)`;
+            quizBadge.classList.remove('hidden');
+
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            renderQuestion();
+        }
+
+        function resetAllQuiz() {
+            startQuiz();
+        }
+    </script>
+</body>
+</html>
