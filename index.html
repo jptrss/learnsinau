@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LearnSinau - Pembelajaran Interaktif</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(99, 102, 241, 0.5);
+      transform: translateY(-4px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- Header / Navbar -->
+  <header class="sticky top-0 z-50 glass-card border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-indigo-500/30">
+          S
+        </div>
+        <span class="text-2xl font-extrabold tracking-tight text-white">Learn<span class="text-indigo-400">Sinau</span></span>
+      </div>
+      <a href="#materi" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-sm transition-all shadow-lg shadow-indigo-600/25">
+        Mulai Belajar
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-7xl mx-auto px-6 pt-16 pb-12 text-center">
+    <span class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 inline-block mb-4">
+      Pokoknya buat belajar
+    </span>
+    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+      Portal <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Pembelajaran Interaktif</span>
+    </h1>
+    <p class="text-slate-400 text-base md:text-lg max-w-2xl mx-auto mb-8">
+      Pilih modul interaktif di bawah ini untuk memulai simulasi dan latihan belajar mandiri.
+    </p>
+
+    <!-- Search Bar & Filter -->
+    <div class="max-w-md mx-auto relative mb-6">
+      <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+      <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="Cari modul atau materi..." 
+             class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition-all">
+    </div>
+  </section>
+
+  <!-- Grid List Materi -->
+  <main id="materi" class="max-w-7xl mx-auto px-6 pb-20 flex-grow">
+    <div id="cardGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- ITEM MATERI 1 -->
+      <a href="matematika-interaktif.html" class="lesson-card glass-card p-6 rounded-2xl transition-all duration-300 group flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-800 text-slate-400 border border-slate-700">Quiz</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-400 transition-colors">Mandarin EASE 1 G11 - Gform</h3>
+          <p class="text-slate-400 text-sm mb-6">Soal persis sama dengan Gform.</p>
+        </div>
+        <div class="flex items-center text-sm font-semibold text-indigo-400 group-hover:translate-x-1 transition-transform">
+          Buka <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+        </div>
+      </a>
+
+      <!-- ITEM MATERI 2 -->
+      <a href="matematika-interaktif.html" class="lesson-card glass-card p-6 rounded-2xl transition-all duration-300 group flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-800 text-slate-400 border border-slate-700">Quiz</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-400 transition-colors">Mandarin EASE 2 G11 - Pointers</h3>
+          <p class="text-slate-400 text-sm mb-6">Soal merujuk kisi-kisi.</p>
+        </div>
+        <div class="flex items-center text-sm font-semibold text-indigo-400 group-hover:translate-x-1 transition-transform">
+          Buka <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500">
+    <p>© 2026 LearnSinau. Built with Tailwind CSS.</p>
+  </footer>
+
+  <!-- Script Pencarian Otomatis -->
+  <script>
+    function filterCards() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.getElementsByClassName('lesson-card');
+
+      for (let card of cards) {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        const desc = card.querySelector('p').innerText.toLowerCase();
+        if (title.includes(input) || desc.includes(input)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
