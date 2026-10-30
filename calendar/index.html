@@ -43,7 +43,15 @@ const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,"0"),esc=s=>Str
 const ds=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`,pd=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d,12)},add=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return ds(d)},diff=(a,b)=>Math.round((pd(b)-pd(a))/864e5),uid=()=>Date.now()*1e3+Math.floor(Math.random()*1e3);
 const JP=[["07:30","08:10"],["08:15","08:55"],["09:15","09:55"],["10:00","10:40"],["10:45","11:25"],["11:30","12:10"],["13:05","13:45"],["13:50","14:30"],["14:35","15:15"]],DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],STAT=["Not Started","Passed","Failed","Completed"];
 const KC={school:"#6c5ce7",task:"#f59e0b",exam:"#ef4444",comp:"#10b981",todo:"#38bdf8"},CATS={Organization:"#8b5cf6",Personal:"#ec4899","Study Target":"#14b8a6",Sports:"#f97316",Other:"#64748b"};
-const FB_CONFIG=null; /* paste your Firebase web config object here when self-hosting */
+const firebaseConfig = {
+  apiKey: "AIzaSyBS1ov6wCHZASCNbC0Mhextuorkew3NjyE",
+  authDomain: "learnsinau.firebaseapp.com",
+  projectId: "learnsinau",
+  storageBucket: "learnsinau.firebasestorage.app",
+  messagingSenderId: "683638642858",
+  appId: "1:683638642858:web:ccc961648232d95c1c18d3",
+  measurementId: "G-N0S2SFCBCL"
+};
 let fb=null,U=null,D=null,S={tab:"cal",view:"month",date:ds(new Date()),ns:[{name:"Round 1",dt:"",loc:"",status:"Not Started"}],nt:{}},mem={};
 const ld=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return mem[k]?JSON.parse(mem[k]):null}},sv=(k,v)=>{const j=JSON.stringify(v);try{localStorage.setItem(k,j)}catch(e){mem[k]=j}};
 const blank=()=>({schedules:{},assignments:[],competitions:[],events:[],daily_todos:{},ov:{},done:{},focus:{},pkgs:[],cats:{}}),COLS=["schedules","assignments","competitions","events","daily_todos"];
